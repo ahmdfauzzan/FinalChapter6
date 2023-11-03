@@ -5,13 +5,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { SliderItem } from "../assets/components/SliderItem";
 import { Autoplay, Pagination } from "swiper/modules";
-import { useMovieDataPopular } from "../services/get-data-movie-popular";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetDataUser } from "../services/auth/get_user";
-import { CookieStorage, CookiesKeys } from "../utils/cookies";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../Redux/action/authLogin";
-import { fetchPopularMovies, getMoviePopular } from "../Redux/action/authMovie";
+import { getMoviePopular } from "../Redux/action/authMovie";
 import { getUser } from "../Redux/action/authGetUser";
 import { fetchSearchResults } from "../Redux/action/authSearchMovie";
 import { CgProfile } from "react-icons/cg";
@@ -20,6 +17,7 @@ export const MovieList = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState(""); // Menyimpan nama film yang dicari
   const navigate = useNavigate();
+  const [Page, setPage] = useState(1);
 
   const loginUser = useSelector((state) => state.auth.token);
   console.log(loginUser, "login user redux");
@@ -38,7 +36,7 @@ export const MovieList = () => {
   };
 
   const MoviePopular = () => {
-    dispatch(getMoviePopular());
+    dispatch(getMoviePopular(Page));
   };
 
   useEffect(() => {

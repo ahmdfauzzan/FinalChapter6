@@ -1,4 +1,4 @@
-import { fetchPopularMoviesAPI, reduxPopularMovie } from "../../services/get-data-movie-popular";
+import { reduxPopularMovie } from "../../services/get-data-movie-popular";
 import { setPopular } from "../reducers/movie/authMovieSlice";
 
 // Redux action (getMoviePopular)

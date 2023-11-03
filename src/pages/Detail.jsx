@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { API_ENDPOINT } from "../utils/api-endpoints";
-import { useMovieDataDetail } from "../services/get-data-movie-detail";
-import { useGetDataUser } from "../services/auth/get_user";
 import { CookieStorage, CookiesKeys } from "../utils/cookies";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovieDetail } from "../Redux/action/authDetailMovie";
@@ -25,29 +21,9 @@ export const Detail = () => {
   useEffect(() => {
     Detail();
   }, []);
-  // const { data: DetailMovie } = useMovieDataDetail({});
-  // console.log(DetailMovie, "Detail movie nya ni");
-  // const { data: UserGetMe } = useGetDataUser({});
 
   const user = useSelector((state) => state.user);
   console.log(user, "user dari redux");
-
-  // console.log(UserGetMe, "ini akun");
-
-  // useEffect(() => {
-  //   movePage();
-  // }, [movieData.id]);
-
-  // const movePage = async () => {
-  //   const response = await axios(`${process.env.REACT_APP_SERVER}${API_ENDPOINT.DETAIL}${movieData.id}&append_to_response=videos`, {
-  //     headers: {
-  //       Authorization: `Bearer ${Token}`,
-  //     },
-  //   });
-  //   setDetailMovie(response.data.data);
-  // };
-
-  // console.log(movePage);
 
   const handleLogout = () => {
     CookieStorage.remove(CookiesKeys.AuthToken);

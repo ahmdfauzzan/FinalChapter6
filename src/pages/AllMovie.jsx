@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RenderList } from "../assets/components/RenderList";
 import { Link } from "react-router-dom";
-import { searchMovie } from "../services/search-movie";
 import { CookieStorage, CookiesKeys } from "../utils/cookies";
-import { useMovieDataPopular } from "../services/get-data-movie-popular";
 import { fetchSearchResults } from "../Redux/action/authSearchMovie";
 import { useDispatch, useSelector } from "react-redux";
 import { getMoviePopular } from "../Redux/action/authMovie";
