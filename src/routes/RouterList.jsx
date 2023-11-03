@@ -20,7 +20,14 @@ export const RouterList = () => {
             </TokenProtected>
           }
         />
-        <Route path="/search/:query" element={<SearchResult />} />
+        <Route
+          path="/search/:query"
+          element={
+            <TokenProtected>
+              <SearchResult />
+            </TokenProtected>
+          }
+        />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/moviesAll" element={<AllMovie />} />
         <Route path="/login" element={<Login />} />

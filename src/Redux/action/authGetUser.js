@@ -9,6 +9,7 @@ export const getUser = () => (dispatch) => {
       //   return result.data.data;
     })
     .catch((err) => {
+      console.log(err.response.data.message);
       return err;
     });
 };

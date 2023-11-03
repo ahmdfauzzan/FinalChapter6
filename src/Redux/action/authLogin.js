@@ -18,7 +18,7 @@ export const LoginUser = (input) => async (dispatch) => {
   }
 };
 
-export const LogOut = (input) => (dispatch) => {
+export const LogOut = () => (dispatch) => {
   dispatch(setToken(undefined));
   CookieStorage.remove(CookiesKeys.AuthToken);
 };

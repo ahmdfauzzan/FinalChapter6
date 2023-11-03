@@ -5,14 +5,21 @@ import { RenderList } from "../assets/components/RenderList";
 import { setSearchResults } from "../Redux/reducers/Search/searchSlice";
 import { fetchSearchResults } from "../Redux/action/authSearchMovie";
 import { useDispatch, useSelector } from "react-redux";
+import { LogOut } from "../Redux/action/authLogin";
 
 const SearchResult = () => {
   const { query } = useParams();
   const dispatch = useDispatch();
+
   const searchResults = useSelector((state) => state.search.searchResults.data);
   console.log(searchResults);
+
   const isSearching = useSelector((state) => state.search.loading);
+
   const [searchQuery, setSearchQuery] = useState(query);
+
+  const user = useSelector((state) => state.user.data.data);
+  console.log(user, "user dari redux");
 
   useEffect(() => {
     // Dispatch the fetchSearchResults action to initiate the search.
@@ -24,6 +31,10 @@ const SearchResult = () => {
     }
   }, [dispatch, searchQuery]);
 
+  const handleLogout = () => {
+    dispatch(LogOut());
+    window.location.href = "/login";
+  };
   return (
     <div>
       <div className="bg-slate-900 h-[100px] items-center flex w-[100%]">
@@ -39,7 +50,9 @@ const SearchResult = () => {
             </svg>
           </div>
           <div className="flex h-2/3 gap-2 w-[200px] justify-end">
-            <button className="bg-red-600 items-center flex w-[70%] justify-center rounded-full text-white font-semibold">Logout</button>
+            <button onClick={handleLogout} className="bg-red-600 items-center flex w-[70%] justify-center rounded-full text-white font-semibold">
+              Logout
+            </button>
           </div>
         </div>
       </div>
