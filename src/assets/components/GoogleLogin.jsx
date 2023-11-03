@@ -5,9 +5,14 @@ import { toast } from "react-toastify";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 import { CookieStorage, CookiesKeys } from "../../utils/cookies";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../Redux/reducers/auth/authLogin";
+import { useNavigate } from "react-router";
 // import { Button } from "react-bootstrap";
 
 function GoogleLogin({ buttonText }) {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const registerLoginWithGoogleAction = async (accessToken) => {
     try {
       let data = JSON.stringify({
@@ -26,13 +31,15 @@ function GoogleLogin({ buttonText }) {
 
       const response = await axios.request(config);
       const { token } = response.data.data;
+      console.log(token);
 
+      dispatch(setToken(token))
       CookieStorage.set(CookiesKeys.AuthToken, token);
 
-      // navigate("/");
+      navigate("/");
 
       // Temporary solution
-      window.location.href = "/";
+      // window.location.href = "/";
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response.data.message);

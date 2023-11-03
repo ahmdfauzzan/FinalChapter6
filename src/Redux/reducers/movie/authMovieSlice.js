@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   popular: [],
-  currentPage: 1,
 };
 
 const getMoviePopular = createSlice({
@@ -11,9 +10,6 @@ const getMoviePopular = createSlice({
   reducers: {
     setPopular: (state, action) => {
       state.popular = action.payload;
-    },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
     },
   },
 });

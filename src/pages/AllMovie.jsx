@@ -6,6 +6,7 @@ import { CookieStorage, CookiesKeys } from "../utils/cookies";
 import { useMovieDataPopular } from "../services/get-data-movie-popular";
 import { fetchSearchResults } from "../Redux/action/authSearchMovie";
 import { useDispatch, useSelector } from "react-redux";
+import { getMoviePopular } from "../Redux/action/authMovie";
 
 const AllMovie = () => {
   const dispatch = useDispatch();
@@ -14,10 +15,10 @@ const AllMovie = () => {
   const [searchQuery, setSearchQuery] = useState(""); // Menyimpan nama film yang dicari
   const [isSearching, setIsSearching] = useState(false); // Menyimpan status pencarian
 
-  const dataPopular = useSelector((state) => state.movies.popular.data); // Ambil data populer dari Redux
+  const dataPopular = useSelector((state) => state?.movies?.popular?.data); // Ambil data populer dari Redux
   console.log(dataPopular);
 
-  const searchResults = useSelector((state) => state.search.searchResults.data); // Ambil hasil pencarian dari Redux
+  const searchResults = useSelector((state) => state?.search?.searchResults?.data); // Ambil hasil pencarian dari Redux
   console.log(searchResults);
 
   useEffect(() => {
@@ -25,15 +26,24 @@ const AllMovie = () => {
       // Gunakan data populer dari Redux jika tidak sedang mencari
       setLoadData(dataPopular);
     }
-  }, [dataPopular, isSearching]);
+  }, [dataPopular, isSearching, PageNow]);
+
+  useEffect(() => {
+    // Inisialisasi data movie popular saat komponen dimuat (menggunakan PageNow saat ini)
+    dispatch(getMoviePopular());
+  }, [dispatch, PageNow]);
 
   const goToNextPage = () => {
-    setPageNow(PageNow + 1);
+    const nextPage = PageNow + 1;
+    setPageNow(nextPage);
+    dispatch(getMoviePopular(nextPage)); // Panggil action creator dengan nomor halaman yang baru
   };
 
   const goToPreviousPage = () => {
     if (PageNow > 1) {
-      setPageNow(PageNow - 1);
+      const prevPage = PageNow - 1;
+      setPageNow(prevPage);
+      dispatch(getMoviePopular(prevPage)); // Panggil action creator dengan nomor halaman yang baru
     }
   };
 
@@ -81,7 +91,7 @@ const AllMovie = () => {
             <div></div>
           ) : (
             <div className="flex items-center">
-              <button onClick={goToPreviousPage} disabled={PageNow === 1} className="px-3 py-2 mr-2 text-white bg-red-500 rounded-full">
+              <button onClick={goToPreviousPage} className="px-3 py-2 mr-2 text-white bg-red-500 rounded-full">
                 Previous
               </button>
               <button onClick={goToNextPage} className="px-3 py-2 text-white bg-red-500 rounded-full">

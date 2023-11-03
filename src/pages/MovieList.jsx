@@ -14,6 +14,7 @@ import { LogOut } from "../Redux/action/authLogin";
 import { fetchPopularMovies, getMoviePopular } from "../Redux/action/authMovie";
 import { getUser } from "../Redux/action/authGetUser";
 import { fetchSearchResults } from "../Redux/action/authSearchMovie";
+import { CgProfile } from "react-icons/cg";
 
 export const MovieList = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,11 @@ export const MovieList = () => {
   console.log(user, "user dari redux");
 
   // const searchResults = useSelector((state) => state.search.searchResults);
+
+  const handleProfileClick = () => {
+    alert(`Detail akun anda \nNama: ${user.name}, \nEmail: ${user.email}`);
+    console.log(alert);
+  };
 
   const MoviePopular = () => {
     dispatch(getMoviePopular());
@@ -73,8 +79,11 @@ export const MovieList = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
           </div>
-          <div className="flex h-2/3 gap-2 w-[200px] justify-end">
-            <button onClick={handleLogout} className="bg-red-600 items-center flex w-[70%] justify-center rounded-full text-white font-semibold">
+          <div className="flex h-2/3 gap-5 w-[12%] justify-end">
+            <button onClick={handleProfileClick}>
+              <CgProfile style={{ color: "red", height: "100%", width: "100%" }} />
+            </button>
+            <button onClick={handleLogout} className="bg-red-600 items-center flex w-[70%] justify-center rounded-full text-white font-semibold text-lg">
               Logout
             </button>
           </div>
