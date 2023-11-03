@@ -1,9 +1,9 @@
-import { fetchPopularMoviesAPI } from "../../services/get-data-movie-popular";
+import { fetchPopularMoviesAPI, reduxPopularMovie } from "../../services/get-data-movie-popular";
 import { setPopular } from "../reducers/movie/authMovieSlice";
 
 // Redux action (getMoviePopular)
-export const getMoviePopular = () => (dispatch) => {
-  fetchPopularMoviesAPI()
+export const getMoviePopular = (page) => (dispatch) => {
+  reduxPopularMovie(page) // Panggil fungsi dengan nomor halaman yang diberikan
     .then((result) => {
       dispatch(setPopular(result?.data));
       console.log(result);

@@ -30,7 +30,7 @@ const AllMovie = () => {
 
   useEffect(() => {
     // Inisialisasi data movie popular saat komponen dimuat (menggunakan PageNow saat ini)
-    dispatch(getMoviePopular());
+    dispatch(getMoviePopular(PageNow));
   }, [dispatch, PageNow]);
 
   const goToNextPage = () => {
@@ -86,7 +86,7 @@ const AllMovie = () => {
       </div>
       <div className="mt-[40px]">
         <header className="flex justify-between items-center mb-5 px-[20px]">
-          <h1 className={`pl-[18px] text-3xl font-bold ${isSearching ? "self-start" : ""}`}>{isSearching ? `Search Result "${searchQuery}"` : "ALL MOVIES"}</h1>
+          <h1 className={`pl-[18px] text-3xl font-bold ${isSearching ? "self-start" : ""}`}>{isSearching ? `Search Result for "${searchQuery}"` : "ALL MOVIES"}</h1>
           {isSearching ? (
             <div></div>
           ) : (

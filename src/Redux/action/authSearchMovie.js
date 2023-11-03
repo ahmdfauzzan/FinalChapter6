@@ -1,15 +1,13 @@
-// searchActions.js
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { searchMovie } from "../../services/search-movie";
 import { setSearchError, setSearchLoading, setSearchResults } from "../reducers/Search/searchSlice";
 
-export const fetchSearchResults = createAsyncThunk("search/fetchSearchResults", async (query, { dispatch, rejectWithValue }) => {
+export const fetchSearchResults = (query) => async (dispatch) => {
   try {
     dispatch(setSearchLoading());
     const results = await searchMovie(query);
     dispatch(setSearchResults(results));
+    console.log(results);
   } catch (error) {
     dispatch(setSearchError(error.message));
-    return rejectWithValue(error.response?.data);
   }
-});
+};
